@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <h2><strong class="row justify-content-center text-info p-2">Panier</strong></h2>
+    <table class="table border border-4">
+        <thead>
+          <tr class="border border-3">
+            <th>N°</th>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fruit of cart; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ fruit.name }}</td>
+            <td>
+                <button class="btn btn-danger text-light" type="button" (click)="decreaseQuantity(fruit)" [ngClass]="{'disabled': fruit.quantity === 0}"
+                [attr.disabled]="fruit.quantity === 0 ? true : null">-</button>
+                {{ fruit.quantity }}
+                  <button class="btn btn-success text-light" type="button" (click)="increaseQuantity(fruit)">+</button>
+            <td>{{ fruit.prixHT * fruit.quantity }}€</td>
+            <td (click)="removeFromCart(fruit)" style="cursor: pointer;" class="text-danger"><strong>X</strong></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <!-- <tr class="border border-2 text-success">Quantité Totale : {{ getTotalQuantity() }}</tr> -->
+          <tr class="border border-2 text-success">
+            <td colspan="3" class="text-success"><strong>Total HT :</strong></td>
+            <td class="text-success"><strong>{{ getTotalHT()| number:'1.2-2' }}€</strong></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-success"><strong>Total TTC :</strong></td>
+            <td class="text-success"><strong>{{ getTotalTTC() | number:'1.2-2' }}€</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+  </div>
